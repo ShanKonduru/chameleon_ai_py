@@ -46,7 +46,8 @@ elif st.session_state.llm_type == "Ollama":
     try:
         ollama_client = ollama.Client(host=ollama_base_url)
         models_info = ollama_client.list()['models']
-        available_ollama_models = [m['name'] for m in models_info]
+        print(models_info)
+        available_ollama_models = [m['model'] for m in models_info]
     except ollama.ResponseError:
         st.sidebar.warning(f"Could not connect to Ollama server at {ollama_base_url}. Is Ollama running?")
     except Exception as e:
@@ -68,7 +69,7 @@ elif st.session_state.llm_type == "Ollama":
 
 
 # Don't hash the LLM object itself
-@st.cache_resource(hash_funcs={BaseLLM: lambda _: None})
+# @st.cache_resource(hash_funcs={BaseLLM: lambda _: None})
 def get_llm_instance(llm_type: str, **kwargs) -> BaseLLM:
     try:
         return LLMFactory.get_llm(llm_type, **kwargs)
