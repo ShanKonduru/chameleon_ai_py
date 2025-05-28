@@ -1,0 +1,9 @@
+# List your project dependencies here
+dotenv
+pytest
+streamlit 
+openai 
+google-generativeai 
+transformers 
+torch
+ollama
